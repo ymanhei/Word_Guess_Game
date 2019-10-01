@@ -1,9 +1,10 @@
 var computerChoices = ["Ronaldo", "Messi", "Neymar"];
-var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)].toLowerCase();
 var alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var usedLetters = [];
 var correctLetter = [];
 var pn_array = computerGuess.split("");
+var failedguess = 10;
 
 
 console.log("Name: " + computerGuess);
@@ -39,7 +40,7 @@ document.onkeyup = function(event) {
 
       // Determines which key was pressed.
       var userGuess = event.key;
-
+      var userGuess = userGuess.toLowerCase();
       // Randomly chooses a choice from the options array. This is the Computer's guess.
      
 
@@ -55,7 +56,10 @@ function gen_underscore(playername,userGuess) {
  var us_html = "";
  var tmp_html = "";
  var tmpUS = "";
+ var sucessfulguess = 0;
  
+ console.log(failedguess);
+
     for (var i = 0; i < pn_array.length; i++) {
         if ((pn_array[i]==userGuess) && (correctLetter.indexOf(userGuess)==-1)) {
             tmpUS = tmpUS + "<li>" + userGuess + "</li><span> </span>";
@@ -66,21 +70,28 @@ function gen_underscore(playername,userGuess) {
     for (var i = 0; i < pn_array.length; i++) { 
         if (correctLetter.indexOf(pn_array[i])==-1) {
             var tmp_html = tmp_html + "<li>_</li>";
+            
         }
         else {
-
             var tmp_html =  tmp_html + "<li>" + pn_array[i] + "</li>";
+            sucessfulguess++;
         }
-        //console.log(tmp_html);
-        //console.log("correct letters " + correctLetter);
+ 
     }
-
-     //console.log("tmp_html " + tmp_html);
 
     var us_html =  "<ul id='us_list'>" + tmp_html + "</ul>";
 
-    
-
-    
     document.getElementById('underscore').innerHTML = us_html;
+
+    if (pn_array.indexOf(userGuess) ==-1 && failedguess > 0) {
+        document.getElementById('done').innerHTML =("You still have" + failedguess + "lives!");
+        failedguess--;
+    }
+    else if (failedguess == 0){
+        document.getElementById('done').innerHTML =("You still have no lives left. Game Over!");
+    }
+    else if (sucessfulguess == pn_array.length) {
+
+        document.getElementById('done').innerHTML =("Well Done!");
+    }
   }
