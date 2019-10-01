@@ -31,22 +31,40 @@ document.onkeyup = function(event) {
      
 
       document.getElementById('guess').innerHTML = userGuess;
-      gen_underscore(computerGuess);     
       usedLetters.push(userGuess);
+      gen_underscore(computerGuess,userGuess);   
       gen_alphabets_list(alphabets);
       console.log(usedLetters);
 }
 
-function gen_underscore(playername) {
+function gen_underscore(playername,userGuess) {
 
  var us_html = "";
+ var tmp_html = "";
  var tmpUS = "";
-    // We then loop through the selected array.
-    for (var i = 0; i < playername.length; i++) {     
-      // Each time we print the value inside the array.
-      tmpUS = tmpUS + "<li>_</li><span> </span>";
+ var correctLetter = [];
+
+    for (var i = 0; i < playername.length; i++) {
+        if (playername[i]==userGuess) {
+            tmpUS = tmpUS + "<li>" + userGuess + "</li><span> </span>";
+            correctLetter.push(userGuess);
+        }
+        else {
+            tmpUS = tmpUS + "<li>_</li><span> </span>";
+        }
     }
-   var us_html =  "<ul id='us_list'>" + tmpUS + "</ul>"
+
+    for (var i = 0; i < playername.length; i++) { 
+        if (correctLetter.indexOf(playername[i])==-1) {
+            var tmp_html =  "<li>_</li>";
+        }
+        else {
+
+            var tmp_html =  "<li>" + correctLetter + "</li>";
+        }
+    }
+
+    var us_html =  "<ul id='us_list'>" + tmpUS + "</ul>";
 
     
 
