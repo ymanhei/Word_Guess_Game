@@ -2,8 +2,21 @@ var computerChoices = ["Ronaldo", "Messi", "Neymar"];
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 var alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var usedLetters = [];
+var correctLetter = [];
+var pn_array = computerGuess.split("");
 
-console.log(computerGuess);
+
+console.log("Name: " + computerGuess);
+
+/* var tmp_html = "";
+for (var i = 0; i < computerGuess.length; i++) {
+    var tmp_html =  tmp_html + "<li>_</li>";    
+}
+console.log(tmp_html);
+var us_html =  "<ul id='us_list'>" + tmp_html + "</ul>";
+console.log(us_html);
+document.getElementById('underscore').innerHTML = us_html; */
+
 
 function gen_alphabets_list(alphabets) {
 
@@ -19,7 +32,7 @@ function gen_alphabets_list(alphabets) {
         
        }     
        document.getElementById('alphabet').innerHTML = alpha_list;
-       console.log(alpha_list);
+
      }
 
 document.onkeyup = function(event) {
@@ -34,7 +47,7 @@ document.onkeyup = function(event) {
       usedLetters.push(userGuess);
       gen_underscore(computerGuess,userGuess);   
       gen_alphabets_list(alphabets);
-      console.log(usedLetters);
+
 }
 
 function gen_underscore(playername,userGuess) {
@@ -42,29 +55,29 @@ function gen_underscore(playername,userGuess) {
  var us_html = "";
  var tmp_html = "";
  var tmpUS = "";
- var correctLetter = [];
-
-    for (var i = 0; i < playername.length; i++) {
-        if (playername[i]==userGuess) {
+ 
+    for (var i = 0; i < pn_array.length; i++) {
+        if ((pn_array[i]==userGuess) && (correctLetter.indexOf(userGuess)==-1)) {
             tmpUS = tmpUS + "<li>" + userGuess + "</li><span> </span>";
-            correctLetter.push(userGuess);
-        }
-        else {
-            tmpUS = tmpUS + "<li>_</li><span> </span>";
+            correctLetter.push(userGuess);        
         }
     }
 
-    for (var i = 0; i < playername.length; i++) { 
-        if (correctLetter.indexOf(playername[i])==-1) {
-            var tmp_html =  "<li>_</li>";
+    for (var i = 0; i < pn_array.length; i++) { 
+        if (correctLetter.indexOf(pn_array[i])==-1) {
+            var tmp_html = tmp_html + "<li>_</li>";
         }
         else {
 
-            var tmp_html =  "<li>" + correctLetter + "</li>";
+            var tmp_html =  tmp_html + "<li>" + pn_array[i] + "</li>";
         }
+        //console.log(tmp_html);
+        //console.log("correct letters " + correctLetter);
     }
 
-    var us_html =  "<ul id='us_list'>" + tmpUS + "</ul>";
+     //console.log("tmp_html " + tmp_html);
+
+    var us_html =  "<ul id='us_list'>" + tmp_html + "</ul>";
 
     
 
