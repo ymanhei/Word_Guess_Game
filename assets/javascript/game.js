@@ -1,4 +1,4 @@
-var computerChoices = ["Ronaldo", "Messi", "Neymar"];
+var computerChoices = ["Ronaldo", "Messi", "Neymar", "Pogba","Hazard"];
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)].toLowerCase();
 var alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var usedLetters_ap = [];
@@ -8,7 +8,24 @@ var correctLetter_us = [];
 var pn_array = computerGuess.split("");
 var failedguess = 11;
 var sucessfulguess = 0;
+var win =0;
+var lose =0;
 
+function reset() {
+    usedLetters_ap = [];
+    usedLetters = [];
+    correctLetter = [];
+    correctLetter_us = [];
+    failedguess = 11;
+    sucessfulguess = 0;
+    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)].toLowerCase();
+    pn_array = computerGuess.split("");
+    document.getElementById('pic').src = "assets/images/question_mark.png";
+    userGuess = "_";
+    gen_alphabets_list(userGuess);
+    gen_underscore(computerGuess,userGuess);  
+    get_results(userGuess);
+}
 
 console.log("Name: " + computerGuess);
 /* var tmp_html = "";
@@ -25,15 +42,17 @@ document.onkeyup = function(event) {
     // Determines which key was pressed.
     var userGuess = event.key;
     var userGuess = userGuess.toLowerCase();
+    console.log(userGuess);
     // Randomly chooses a choice from the options array. This is the Computer's guess.
-   
+
 
     document.getElementById('guess').innerHTML = "Your guess: " + userGuess;
 
     if (failedguess>0) {
-    gen_alphabets_list(userGuess);
+      gen_alphabets_list(userGuess);
       gen_underscore(computerGuess,userGuess);  
       get_results(userGuess);
+      
     }
     
     if (usedLetters.indexOf(userGuess)==-1) {
@@ -46,6 +65,7 @@ function gen_alphabets_list(userGuess) {
 
     var alpha_list = "";
     usedLetters_ap.push(userGuess);
+    console.log(usedLetters_ap);
        for (var i = 0; i < alphabets.length; i++) { 
            
            if (usedLetters_ap.indexOf(alphabets[i])==-1) {
@@ -82,7 +102,7 @@ function gen_underscore(playername,userGuess) {
             correctLetter_us.push(userGuess); 
              
             //console.log("sucessfulguess " + sucessfulguess);    
-            console.log("pn_array indexof  " + pn_array.indexOf(userGuess)); 
+           // console.log("pn_array indexof  " + pn_array.indexOf(userGuess)); 
         }
     }
 /* 
@@ -130,7 +150,10 @@ function gen_underscore(playername,userGuess) {
                   else{
                     document.getElementById('done').innerHTML =("You have no lives left. Game Over!");
                     document.getElementById('pic').src = "assets/images/gameover.jpg";
-                    return;
+                    lose++;
+                    document.getElementById('winlose').innerHTML =("Win: " + win + " Lose: " + lose);
+                    setTimeout(reset, 3000);
+                    //return;
                   }
        
         }
@@ -151,15 +174,19 @@ function gen_underscore(playername,userGuess) {
 
             if (sucessfulguess == pn_array.length) {
                 document.getElementById('done').innerHTML =("Well Done!");
+                win++;
+                document.getElementById('winlose').innerHTML =("Win: " + win + " Lose: " + lose);
+                setTimeout(reset, 3000);
            // console.log(computerGuess);
             document.getElementById('pic').src = "assets/images/"+ computerGuess +".jpg";
-            return;
+            //return;
             }
             else {
                 
                 
-               console.log("sucessfulguess" + sucessfulguess);
+               //console.log("sucessfulguess" + sucessfulguess);
             }
             
         }
     }
+
