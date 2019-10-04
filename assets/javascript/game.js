@@ -11,6 +11,8 @@ var sucessfulguess = 0;
 var win =0;
 var lose =0;
 
+
+
 function reset() {
     usedLetters_ap = [];
     usedLetters = [];
@@ -152,7 +154,7 @@ function gen_underscore(playername,userGuess) {
                     document.getElementById('pic').src = "assets/images/gameover.jpg";
                     lose++;
                     document.getElementById('winlose').innerHTML =("Win: " + win + " Lose: " + lose);
-                    setTimeout(reset, 3000);
+                    setTimeout(reset, 5000);
                     //return;
                   }
        
@@ -176,7 +178,8 @@ function gen_underscore(playername,userGuess) {
                 document.getElementById('done').innerHTML =("Well Done!");
                 win++;
                 document.getElementById('winlose').innerHTML =("Win: " + win + " Lose: " + lose);
-                setTimeout(reset, 3000);
+                myPlay();
+                setTimeout(reset, 5000);
            // console.log(computerGuess);
             document.getElementById('pic').src = "assets/images/"+ computerGuess +".jpg";
             //return;
@@ -190,3 +193,7 @@ function gen_underscore(playername,userGuess) {
         }
     }
 
+    function myPlay(){
+        var audio = new Audio("assets/sounds/goal.wav");
+        audio.play();
+    }
